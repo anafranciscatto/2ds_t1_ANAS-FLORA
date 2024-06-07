@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <div class="logo_img"><img src="/static/IMG/logos/logo.png" alt="Logo"></div>
+        <div class="logo_img"><img href="/produtos" src="/static/IMG/logos/logo.png" alt="Logo"></div>
         <nav>
             <ul>
                 <li class="li__botao" ><a href="/produtos">Voltar</a></li>
@@ -19,33 +19,45 @@
     </header>
     <main>
         <div class="lado_esquerdo">
-            <img src="/static/IMG/PERFUMES/propaganda/Alegria.png" alt="">
+            <div class="perfume-info">
+                <h1>{{ perfume_escolhidoID[1] }}</h1>
+                    <p>{{ perfume_escolhidoID[5] }}</p>
+            </div>
+            <img src="{{ perfume_escolhidoID[4] }}" alt="">
         </div>
         <div class="lado_direito">
-            <div class="campo">
-                <h1>NOME DO PERFUME</h1>
-                <p>CATEGORIA DO PERFUME</p>
-            </div>
             <div class="campo descricao">
                 <hr>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non modi ad omnis velit in et eveniet. Voluptate ratione ipsam minima perferendis praesentium quis provident necessitatibus laudantium similique. Ratione, blanditiis vero?</p>
+                <p>{{ perfume_escolhidoID[2] }}</p>
                 <hr>
             </div>
-            <div class="campo">
-                <h5>Comente:</h5>
-                <form action="#">
+            <div class="campo comentario">
+                <h2>Comente:</h2>
+                <form action="/cadastro-comentario/{{ perfume_escolhidoID[0] }}" method="POST">
                     <div class="caixa-comentario">
                         <label for="comentario">Deixe seu comentário:</label>
-                        <input type="text" id="comentario" name="comentario" placeholder="Digite seu comentário aqui">
-                        <button type="submit">Enviar</button>
+                        <textarea id="comentario" name="comentario" placeholder="Digite seu comentário aqui"></textarea>
+                        <button  class="comprar" type="submit">Enviar</button>
                     </div>
                 </form>
-        
+                
                 <div class="espaco-comentarios">
                     <h3>Comentários Recentes</h3>
-                    <ul>
-                        </ul>
+                    <hr> <!-- Linha horizontal -->
+                    <ol>
+                        {% for comentario in comentarios %}
+                        <li class="comentario-container">
+                            <span class="comentario-nome">{{ comentario[2] }}:</span>
+                            <p class="comentario-texto">{{ comentario[0] }}</p>
+                            <span class="comentario-horario">{{ comentario[1] }}</span>
+                        </li>
+                        <hr>
+                        {% endfor %}
+                    </ol>
                 </div>
+                
+                
+                
             </div>
         </div>
     </main>

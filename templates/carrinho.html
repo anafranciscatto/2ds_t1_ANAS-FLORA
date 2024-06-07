@@ -12,54 +12,33 @@
         <div class="logo_img"><img src="/static/IMG/logos/logo.png" alt="Logo"></div>
         <nav>
             <ul>
-                <li class="li__botao" href="/">HOME</li>
-                <li class="li__botao" href="/produtos">PRODUTOS</li>
-                <li class="li__botao" href="/login-cadastro"><a>LOGIN</a></li>
+                <li class="li__botao"><a href="/produtos">HOME</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <div class="container">
-            <div class="campo_produto">
-                <div class="img">
-                    <img src="/static/IMG/PERFUMES/propaganda/Intenso.png" alt="">
-                </div>
-                <div class="conteudo">
-                    <h2>Nome do PERFUME</h2>
-                    <p>Descrição</p>
-                    <p>R$130,00</p>
-                    <button class="comprar">Comprar</button>
-                    <button class="excluir">excluir</button>
-                </div>
-            </div>
-            <hr>
-            <div class="campo_produto">
-                <div class="img">
-                    <img src="/static/IMG/PERFUMES/propaganda/Intenso.png" alt="">
-                </div>
-                <div class="conteudo">
-                    <h2>Nome do PERFUME</h2>
-                    <p>Descrição</p>
-                    <p>R$130,00</p>
-                    <button class="comprar">Comprar</button>
-                    <button class="excluir">excluir</button>
-                </div>
-            </div>
-            <hr>
-            <div class="campo_produto">
-                <div class="img">
-                    <img src="/static/IMG/PERFUMES/propaganda/Intenso.png" alt="">
-                </div>
-                <div class="conteudo">
-                    <h2>Nome do PERFUME</h2>
-                    <p>Descrição</p>
-                    <p>R$130,00</p>
-                    <button class="comprar">Comprar</button>
-                    <button class="excluir">excluir</button>
-                </div>
-            </div>
-            <hr>
-            <button class="comprar">Comprar carrinho</button>
+            <h1>Carrinho de Compras</h1>
+            {% if itens_carrinho %}
+                {% for item in itens_carrinho %}
+                    <div class="campo_produto">
+                        <div class="img">
+                            <img src="{{ item[4] }}" alt="foto do produto">
+                        </div>
+                        <div class="conteudo">
+                            <h2>{{ item[1] }}</h2>
+                            <p>R${{ item[3] }}</p>
+                            <form action="/remover-carrinho/{{ item[0] }}" method="post">
+                                <button type="submit">Excluir</button>
+                            </form>
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+            {% else %}
+                <p>O seu carrinho está vazio.</p>
+            {% endif %}
+            <button class="comprar"><a href="/cep">Finalizar Compra</a></button>
         </div>
     </main>
 </body>
